@@ -4,7 +4,6 @@ const fs = require("fs")
 const app = express()
 const PORT = 8000
 const mongoose = require('mongoose')
-//middleware
 
 
 //schema
@@ -24,12 +23,12 @@ const userSchema = new mongoose.Schema({
         type:String
     }
 },{timestamps:true}) 
+const User = mongoose.model('user',userSchema)
 //connection
 mongoose.connect('mongodb://127.0.0.1:27017/youtube-app-1')
 .then(()=>console.log("mongo connected"))
 .catch((Err)=>console.log(Err))
 // create model
-const User = mongoose.model('user',userSchema)
 
 
 app.use(express.urlencoded({extended:false}))
@@ -39,6 +38,7 @@ app.use((req,res,next)=>{
     res.setHeader("X-position","stand")
     next()
 })
+
 app.use((req,res,next)=>{
     console.log("hello from middleware 02")
     //return res.end("hey from middleware 02")
@@ -60,16 +60,14 @@ app.get('/users',async(req,res)=>{
     </ul>
     `
     return res.send(html)
-
-
 })
-
 
 
 app.get('/api/users',async(req,res)=>{
     const allDbUsers = await User.find({}) 
     return res.json(allDbUsers) 
 })
+
 //dynamic route where id is dynamic
 app.route('/api/users/:id').get( async (req,res)=>{
     const user = await User.findById(req.params.id)
