@@ -18,7 +18,8 @@ background-color: rgb(93, 94, 106);"
      background-color: rgb(1, 62, 105); 
      height: 80vh;
      width: 80vw;
-     border-radius: 20px;">
+     border-radius: 20px;
+     ">
 
         <h1>URL SHORTENER</h1> 
         <% if(locals.id){%>
@@ -40,7 +41,7 @@ background-color: rgb(93, 94, 106);"
                             <th>Clicks</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         <% urls.forEach((url, index) => { %>
                     <tr>
                         <td><%= index + 1 %></td>
